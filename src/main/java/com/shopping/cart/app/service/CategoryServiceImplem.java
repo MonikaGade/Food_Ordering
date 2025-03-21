@@ -36,19 +36,20 @@ public class CategoryServiceImplem implements CategoryService {
 
 	@Override
 	public List<Category> findCategoryByRestaurantId(Long id) throws Exception {
+         
 		Restaurant restaurantByUserId = restaurantService.getRestaurantByUserId(id);
-		return categoryRepository.findByRestaurantId(restaurantByUserId.getId());
+		return categoryRepository.findByRestaurantId(id);
 	}
 
 	@Override
 	public Category findCategory(Long id) throws Exception {
-		 
-		Optional<Category> optionalCategory= categoryRepository.findById(id);
-		
-		if(optionalCategory.isEmpty()) {
-			throw new Exception("category not found");
+
+		Optional<Category> optionalCategory = categoryRepository.findById(id);
+
+		if (optionalCategory.isEmpty()) {
+			throw new Exception("category not found ");
 		}
-		
+
 		return optionalCategory.get();
 	}
 

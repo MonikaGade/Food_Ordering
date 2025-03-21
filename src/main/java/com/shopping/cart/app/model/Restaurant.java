@@ -47,6 +47,7 @@ public class Restaurant {
 	
 	private String openingHours;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Order> order=new ArrayList<>();
 	
@@ -56,6 +57,17 @@ public class Restaurant {
 	
 	private LocalDateTime registrationDate;
 	
+	 @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<Category> categories = new ArrayList<>();
+	
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "restaurant")
 	private List<Food> food=new ArrayList<>();

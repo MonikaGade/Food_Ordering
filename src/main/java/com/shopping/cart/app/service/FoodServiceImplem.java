@@ -1,5 +1,6 @@
 package com.shopping.cart.app.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ public class FoodServiceImplem implements FoodService {
 		food.setIngredients(req.getIngredients());
 		food.setSeasonal(req.isSeasional());
 		food.setVegetian(req.isVegetarin());
+		food.setCreationDate(new Date());
 		Food savedFood = foodRepository.save(food);
 		restaurant.getFood().add(savedFood);
 		return savedFood;
