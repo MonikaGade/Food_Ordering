@@ -1,4 +1,4 @@
-import { ADD_TO_FAVORITE_FAILURE, GET_USER_FAILURE, GET_USER_REQUEST, LOGIN_FAILURE, LOGOUT, REGISTER_FAILURE,REGISTER_REQUEST ,REGISTER_SUCCESS,LOGIN_SUCCESS, GET_USER_SUCCESS,LOGIN_REQUEST} from "./ActionType";
+import { ADD_TO_FAVORITE_FAILURE, GET_USER_FAILURE, GET_USER_REQUEST, LOGIN_FAILURE, LOGOUT, REGISTER_FAILURE,REGISTER_REQUEST ,REGISTER_SUCCESS,LOGIN_SUCCESS, GET_USER_SUCCESS,LOGIN_REQUEST, ADD_TO_FAVORITE_REQUEST, ADD_TO_FAVORITE_SUCCESS} from "./ActionType";
 import {api, API_URL} from "../../Components/Config/api"
 import axios from "axios";
 export const registerUser = (reqData) => async (dispatch) => {
@@ -66,21 +66,24 @@ export const getUser = (jwt) => async (dispatch) => {
 }
 
 
-export const addToFavorite = ({ jwt, restaurantId }) => async (dispatch) => {
-  dispatch({ type: GET_USER_REQUEST })
+export const addToFavorite = ({ restaurantId,jwt }) => 
+  async (dispatch) => {
+   console.log(jwt)
+  dispatch({ type:ADD_TO_FAVORITE_REQUEST })
+
   try {
-    const { data } = await api.put(`/api/restaurants/${restaurantId}/add-favorite`, {
+    const { data } = await api.put(`/api/restaurants/${restaurantId}/add-favorites`, {},{
       headers: {
         Authorization: `Bearer ${jwt}`
       }
     });
-
-
+    console.log('data',data)
 
     dispatch({ type: ADD_TO_FAVORITE_SUCCESS, payload: data });
     console.log("ADD to favorites", data)
 
   } catch (error) {
+  
     dispatch({type:ADD_TO_FAVORITE_FAILURE,payload:error})
     console.log('error', error);
   }

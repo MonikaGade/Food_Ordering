@@ -1,4 +1,5 @@
 
+import isPresentInFavorites from "../../Components/Config/logic";
 import {
     REGISTER_FAILURE
     , ADD_TO_FAVORITE_SUCCESS
@@ -43,6 +44,7 @@ export const authReducer = (state = intialState, action) => {
                 ...state,
                 isLoading: false,
                 user: action.payload,
+                favorites:action.payload.favorites
             };
         case ADD_TO_FAVORITE_SUCCESS:
             return {

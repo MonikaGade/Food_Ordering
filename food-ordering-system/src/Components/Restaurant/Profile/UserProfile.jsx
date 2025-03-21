@@ -10,8 +10,8 @@ const UserProfile=()=>{
      
      <div className="flex flex-col items-center justify-center">
      <AccountCircleIcon sx={{fontSize:"9rem"}}/>
-     <h1 className='py-5 text-2xl font-semibold'>Code with Zosh</h1>
-     <p>Email : codewithzosh@gmail.com</p>
+     <h1 className='py-5 text-2xl font-semibold'>Yummy Restaurant</h1>
+     <p>Email : yummyrestaurant@gmail.com</p>
      <Button sx={{margin:"2rem 0rem"}} onClick={handleLogout} variant='contained'>Logout</Button>
      </div>
 

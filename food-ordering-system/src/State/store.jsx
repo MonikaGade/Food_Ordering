@@ -4,18 +4,18 @@ import { thunk } from "redux-thunk";
 import restaurantReducer from "./Restaurant/Reducer";
 import menuItemReducer from "./Menu/Reducer";
 import cartReducer from "./Cart/Reducer";
-// import { orderReducer } from "./Order/Reducer";
-// import { ingredientsReducer } from "./Ingredients/Reducer";
-// import { restaurantsOrderReducer } from "./RestaurantOrders/Reducer";
+import { orderReducer } from "./Order/Reducer";
+import { ingredientReducer } from "./Ingredients/Reducer";
+
 
 const rootReducer = combineReducers({
     auth: authReducer,
     restaurant:restaurantReducer,
     menu:menuItemReducer,
-    // cart:cartReducer,
-    // order:orderReducer,
-    // restaurantOrder:restaurantsOrderReducer,
-    // ingredients:ingredientsReducer
+    cart:cartReducer,
+    order:orderReducer,
+    restaurantOrder:restaurantReducer,
+    ingredients:ingredientReducer
 })
 
 

@@ -1,72 +1,69 @@
 
-import { LOGOUT } from '../Authentication/ActionType'
-import * as actionTypes from './ActionType';
-
+import * as actionType from './ActionType'
+import { LOGOUT } from '../Authentication/ActionType';
 const initialState = {
     cart: null,
     cartItems: [],
     loading: false,
-    error: null,
+    error: null
 };
-const cartReducer = (state=initialState, action) => {
+
+
+const cartReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.FIND_CART_REQUEST:
-        case actionTypes.GET_ALL_CART_ITEMS_REQUEST:
-        case actionTypes.UPDATE_CARTITEM_REQUEST:
-        case actionTypes.REMOVE_CARTITEM_REQUEST:
+        case actionType.FIND_CART_REQUEST:
+        case actionType.GET_ALL_CART_ITEMS_REQUEST:
+        case actionType.UPDATE_CARTITEM_REQUEST:
+        case actionType.REMOVE_CARTITEM_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null,
+                error: null
             };
 
-        case actionTypes.FIND_CART_SUCCESS:
-        case actionTypes.CLEARE_CART_SUCCESS:
+
+        case actionType.FIND_CART_SUCCESS:
+        case actionType.CLEARE_CART_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 cart: action.payload,
-                cartItems: action.payload.items
-            };
-        case actionTypes.ADD_ITEM_TO_CART_SUCCESS:
+                cartItems: action.payload.items,
+            }
+           case actionType.ADD_ITEM_TO_CART_SUCCESS:
             return {
                 ...state,
-                loading: false,
-                cartItems: [action.payload, ...state.cartItems]
-            };
+                loading:false,
+                cartItems:[action.payload,...state,cartItems],
+            }
 
-        case actionTypes.UPDATE_CARTITEM_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                cartItems: state.cartItems.map((item) =>{
-                   return item.id === action.payload.id ? action.payload : item
-                }
-                )
-            };
-    
-        case actionTypes.REMOVE_CARTITEM_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                cartItems: state.cartItems.filter((item) =>
-                    item.id !== action.payload)
-            };
-
-        case actionTypes.FIND_CART_FAILURE:
-        case actionTypes.UPDATE_CARTITEM_FAILURE:
-        case actionTypes.REMOVE_CARTITEM_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            };
-
-        case LOGOUT:
-            localStorage.removeItem("jwt");
-            return { ...state, cartItems: [], cart: null, success: "logout success" }
-        default:
-            return state;
+            case actionType.UPDATE_CARTITEM_SUCCESS:
+                return {
+                    ...state,
+                    loading:false,
+                    cartItems:state.cartItems.map((item)=>item.id===action.payload.id?action.payload:item)
+                };
+                case actionType.REMOVE_CARTITEM_SUCCESS:
+                    return {
+                        ...state,
+                        loading:false,
+                        cartItems:state.cartItems.filter((item)=item.id!==action.payload)
+                    };
+                    case actionType.FIND_CART_FAILURE:
+                        case actionType.UPDATE_CARTITEM_FAILURE:
+                            case actionType.REMOVE_CARTITEM_FAILURE:
+                                return {
+                                    ...state,
+                                    loading:false,
+                                    error:action.payload
+                                };
+                                case LOGOUT:
+                                    localStorage.removeItem("jwt");
+                                    return {
+                                        ...state,cartItems:[],cart:null,success:"input success"
+                                    }
+                          default:
+                            return state;
 
 
     }

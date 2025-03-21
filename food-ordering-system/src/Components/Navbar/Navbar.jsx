@@ -6,7 +6,7 @@ import { Person } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Navbar = () => {
-  const {auth}=useSelector(store=>store);
+  const {auth,cart}=useSelector(store=>store);
    
   const navigate = useNavigate();
 
@@ -45,8 +45,10 @@ const Navbar = () => {
 
 
       <div className="">
-        <IconButton>
-          <Badge color="primary" badgeContent={3}>
+        <IconButton onClick={()=>navigate("/cart")}>
+          <Badge color="primary" badgeContent={3}> 
+          
+           {/* <Badge color="primary" badgeContent={ cart.cart.items.length}>  */}
             <ShoppingCartIcon sx={{ fontSize: "1.5rem" }}></ShoppingCartIcon>
           </Badge>
         </IconButton>
