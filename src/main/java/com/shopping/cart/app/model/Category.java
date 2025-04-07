@@ -18,6 +18,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Category {
 	
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", restaurant=" + restaurant + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

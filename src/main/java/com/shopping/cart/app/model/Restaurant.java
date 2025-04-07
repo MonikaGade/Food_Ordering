@@ -11,6 +11,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +27,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Restaurant {
 	
+	@Override
+	public String toString() {
+		return "Restaurant [id=" + id + ", owner=" + owner + ", name=" + name + ", description=" + description
+				+ ", cuisineType=" + cuisineType + ", address=" + address + ", contactInformation=" + contactInformation
+				+ ", openingHours=" + openingHours + ", order=" + order + ", images=" + images + ", registrationDate="
+				+ registrationDate + ", categories=" + categories + ", food=" + food + ", open=" + open + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -69,7 +78,7 @@ public class Restaurant {
 	}
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "restaurant")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "restaurant",fetch = FetchType.EAGER)
 	private List<Food> food=new ArrayList<>();
 	
 	private boolean open;
@@ -177,10 +186,6 @@ public class Restaurant {
 	public void setOpen(boolean open) {
 		this.open = open;
 	}
-	
-	
-	
-	
 	
 
 }

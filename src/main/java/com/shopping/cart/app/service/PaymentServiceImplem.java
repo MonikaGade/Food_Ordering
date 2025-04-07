@@ -32,9 +32,7 @@ public class PaymentServiceImplem implements PaymentService {
 						SessionCreateParams.LineItem
 								.builder().setQuantity(1L).setPriceData(
 										SessionCreateParams.LineItem.PriceData.builder().setCurrency("usd")
-												// .setUnitAmount((long) (order.getTotalPrice() * 100)) // Convert to
-												// cents
-												.setUnitAmount((long) (200 * 100))
+												 .setUnitAmount((long) (order.getTotalPrice() * 100)) 
 												.setProductData(SessionCreateParams.LineItem.PriceData.ProductData
 														.builder().setName("Yummy Food").build())
 												.build())

@@ -38,19 +38,45 @@ public class AdminFoodController {
 	@Autowired
 	private RestaurantService restaurantService;
 
+//	@PostMapping
+//	public ResponseEntity<Food> createFood(@RequestBody CreateFoodRequest req,
+//			@RequestHeader("Authorization") String jwt) throws Exception {
+//
+//		User user = userService.findUserByJwtToken(jwt);
+//		System.out.println("User ID: " + user.getId());
+//
+//		Restaurant restaurant = restaurantService.getRestaurantByUserId(user.getId());
+//		System.out.println("Restaurant: " + restaurant+"----------------------------------------");
+//
+//		Food food = foodService.createFood(req, req.getCategory(), restaurant);
+//
+//		return new ResponseEntity<>(food, HttpStatus.CREATED);
+//	}
+
 	@PostMapping
-	public ResponseEntity<Food> createFood(@RequestBody CreateFoodRequest req,
-			@RequestHeader("Authorization") String jwt) throws Exception {
-
-		User user = userService.findUserByJwtToken(jwt);
-		Restaurant restaurant = restaurantService.findRestaurantById(req.getRestaurantId());
-		Food food = foodService.createFood(req, req.getCategory(), restaurant);
-
-		return new ResponseEntity<>(food, HttpStatus.CREATED);
+	public ResponseEntity<?> createFood(@RequestBody CreateFoodRequest req,
+	                                   @RequestHeader("Authorization") String jwt) {
+	    try {
+	        User user = userService.findUserByJwtToken(jwt);
+	        if (user == null) {
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid JWT Token");
+	        }
+	        
+	        Restaurant restaurant = restaurantService.getRestaurantByUserId(user.getId());
+	        if (restaurant == null) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Restaurant not found for user ID: " + user.getId());
+	        }
+	        
+	        Food food = foodService.createFood(req, req.getCategory(), restaurant);
+	        return new ResponseEntity<>(food, HttpStatus.CREATED);
+	        
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+	    }
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<MessageResponse> deleteFood(@PathVariable Long id, @RequestHeader("Authorization") String jwt)
+	public ResponseEntity<MessageResponse> deleteFood (@PathVariable Long id, @RequestHeader("Authorization") String jwt)
 			throws Exception {
 
 		User user = userService.findUserByJwtToken(jwt);

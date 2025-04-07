@@ -38,6 +38,7 @@ public class AdminRestaurantController {
 		User user = userService.findUserByJwtToken(jwt);
 		System.out.println("123455");
 		Restaurant restaurant = restaurantService.createRestaurant(req, user);
+		System.out.println(restaurant);
 		return new ResponseEntity<>(restaurant, HttpStatus.CREATED);
 	}
 

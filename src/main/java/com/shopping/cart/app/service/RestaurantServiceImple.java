@@ -97,29 +97,17 @@ public class RestaurantServiceImple implements RestaurantService {
 		return opt.get();
 	}
 
-//	@Override
-//	public Restaurant getRestaurantByUserId(Long userId) throws Exception {
-//         
-//		Restaurant restaurant=restaurantRepo.findByOwnerId(userId);
-//		
-//		if(restaurant==null) {
-//			throw new Exception("Restaurant not found with owner id"+userId);
-//		}
-//		return restaurant;
-//	}
-	
-	public Restaurant getRestaurantByUserId(Long id) {
-	    System.out.println("Fetching restaurant for user ID: " + id);
-	    Optional<Restaurant> restaurant = restaurantRepo.findById(id);
-
-	    if (restaurant.isEmpty()) {
-	        System.out.println("No restaurant found for ID: " + id);
-	        return null;
-	    }
-
-	    System.out.println("Fetched Restaurant: " + restaurant.get());
-	    return restaurant.get();
+	@Override
+	public Restaurant getRestaurantByUserId(Long userId) throws Exception {
+         
+		Restaurant restaurant=restaurantRepo.findByOwnerId(userId);
+		
+		if(restaurant==null) {
+			throw new Exception("Restaurant not found with owner id"+userId);
+		}
+		return restaurant;
 	}
+	
 
 
 	@Override
@@ -163,5 +151,7 @@ public class RestaurantServiceImple implements RestaurantService {
 		
 		return restaurantRepo.save(restaurant);
 	}
+	
+	
 
 }

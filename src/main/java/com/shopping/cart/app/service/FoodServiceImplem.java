@@ -71,20 +71,22 @@ public class FoodServiceImplem implements FoodService {
 		if (foodCategory != null && !foodCategory.equals("")) {
 			foods = filterByCategory(foods, foodCategory);
 		}
-
+  System.out.println(foods+" foods");
 		return foods;
 	}
 
 	private List<Food> filterByCategory(List<Food> foods, String foodCategory) {
-
-		return (List<Food>) foods.stream().filter(food -> {
-			if (food.getFoodCategory() != null) {
-				return food.getFoodCategory().getName().equals(foodCategory);
-			}
-			return false;
-		}).collect(Collectors.toList());
-
+	    return foods.stream()
+	            .filter(food -> {
+	                if (food.getFoodCategory() != null && food.getFoodCategory().getName() != null) {
+	                    System.out.println("Checking category: " + food.getFoodCategory().getName());
+	                    return food.getFoodCategory().getName().equals(foodCategory);
+	                }
+	                return false;
+	            })
+	            .collect(Collectors.toList());
 	}
+
 
 	private List<Food> filterBySeasonal(List<Food> foods, boolean isSeasonal) {
 

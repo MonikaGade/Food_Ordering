@@ -51,16 +51,15 @@ public class CategoryController {
 
 	// customer and rest owner
 
-//	@GetMapping("/category/restaurant/{id}")
-//	public ResponseEntity<List<Category>> getRestaurantCategory(@RequestHeader("Authorization") String jwt,
-//			@PathVariable Long id)
-//			throws Exception {
-//		User user = userService.findUserByJwtToken(jwt);
-//		List<Category> categories = categoryService.findCategoryByRestaurantId(id);
-//		System.out.println(categories+"  "+categories);
-//		return new ResponseEntity<>(categories, HttpStatus.CREATED);
-//
-//	}
+	@GetMapping("/category/restaurant/{id}")
+	public ResponseEntity<List<Category>> getRestaurantCategory(@RequestHeader("Authorization") String jwt,
+			@PathVariable Long id)
+			throws Exception {
+		User user = userService.findUserByJwtToken(jwt);
+		List<Category> categories = categoryService.findCategoryByRestaurantId(id);
+		return new ResponseEntity<>(categories, HttpStatus.CREATED);
+
+	}
 	
 //	@GetMapping("/category/restaurant/{id}")
 //	public ResponseEntity<List<Category>> getRestaurantCategory(
@@ -86,42 +85,42 @@ public class CategoryController {
 //	}
 
 	
-	@GetMapping("/category/restaurant/{id}")
-	public ResponseEntity<?> getRestaurantCategory(
-	        @RequestHeader("Authorization") String jwt,
-	        @PathVariable Long id) {
-	    try {
-	        // Log the received request
-	        System.out.println("Received request for restaurant ID: " + id);
-	        System.out.println("Received JWT: " + jwt);
-
-	        // Check if JWT is valid
-	        User user = userService.findUserByJwtToken(jwt);
-	        if (user == null) {
-	            return new ResponseEntity<>("Invalid JWT Token", HttpStatus.UNAUTHORIZED);
-	        }
-	        System.out.println("User Found: " + user);
-
-	        // Check if restaurant exists
-	        Restaurant restaurant = restaurantService.getRestaurantByUserId(id);
-	        if (restaurant == null) {
-	            return new ResponseEntity<>("Restaurant not found for ID: " + id, HttpStatus.NOT_FOUND);
-	        }
-	        System.out.println("Restaurant Found: " + restaurant);
-
-	        // Fetch categories
-	        List<Category> categories = categoryRepository.findByRestaurantId(restaurant.getId());
-	        if (categories == null || categories.isEmpty()) {
-	            return new ResponseEntity<>("No categories found for restaurant ID: " + id, HttpStatus.NOT_FOUND);
-	        }
-	        System.out.println("Categories Found: " + categories);
-
-	        return new ResponseEntity<>(categories, HttpStatus.OK);
-	    } catch (Exception e) {
-	        e.printStackTrace(); // Print full error stack trace
-	        return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	}
+//	@GetMapping("/category/restaurant/{id}")
+//	public ResponseEntity<?> getRestaurantCategory(
+//	        @RequestHeader("Authorization") String jwt,
+//	        @PathVariable Long id) {
+//	    try {
+//	        // Log the received request
+//	        System.out.println("Received request for restaurant ID: " + id);
+//	        System.out.println("Received JWT: " + jwt);
+//
+//	        // Check if JWT is valid
+//	        User user = userService.findUserByJwtToken(jwt);
+//	        if (user == null) {
+//	            return new ResponseEntity<>("Invalid JWT Token", HttpStatus.UNAUTHORIZED);
+//	        }
+//	        System.out.println("User Found: " + user);
+//
+//	        // Check if restaurant exists
+//	        Restaurant restaurant = restaurantService.getRestaurantByUserId(id);
+//	        if (restaurant == null) {
+//	            return new ResponseEntity<>("Restaurant not found for ID: " + id, HttpStatus.NOT_FOUND);
+//	        }
+//	        System.out.println("Restaurant Found: " + restaurant);
+//
+//	        // Fetch categories
+//	        List<Category> categories = categoryRepository.findByRestaurantId(restaurant.getId());
+//	        if (categories == null || categories.isEmpty()) {
+//	            return new ResponseEntity<>("No categories found for restaurant ID: " + id, HttpStatus.NOT_FOUND);
+//	        }
+//	        System.out.println("Categories Found: " + categories);
+//
+//	        return new ResponseEntity<>(categories, HttpStatus.OK);
+//	    } catch (Exception e) {
+//	        e.printStackTrace(); // Print full error stack trace
+//	        return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//	    }
+//	}
 
 
 }

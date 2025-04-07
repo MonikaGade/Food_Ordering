@@ -22,6 +22,7 @@ public class CategoryServiceImplem implements CategoryService {
 	@Override
 	public Category createCategory(String name, Long userId) {
 		Restaurant restaurant = null;
+		System.out.println("user id ------->"+userId);
 		try {
 			restaurant = restaurantService.getRestaurantByUserId(userId);
 		} catch (Exception e) {
@@ -30,14 +31,16 @@ public class CategoryServiceImplem implements CategoryService {
 		}
 		Category category = new Category();
 		category.setName(name);
+		
 		category.setRestaurant(restaurant);
 		return categoryRepository.save(category);
 	}
 
+	
 	@Override
 	public List<Category> findCategoryByRestaurantId(Long id) throws Exception {
          
-		Restaurant restaurantByUserId = restaurantService.getRestaurantByUserId(id);
+		Restaurant restaurantByUserId = restaurantService.findRestaurantById(id);
 		return categoryRepository.findByRestaurantId(id);
 	}
 

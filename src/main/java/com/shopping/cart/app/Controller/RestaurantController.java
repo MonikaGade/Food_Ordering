@@ -35,6 +35,7 @@ public class RestaurantController {
 		// for that user
 		User user = userService.findUserByJwtToken(jwt);
 		List<Restaurant> restaurant = restaurantService.searchRestaurant(keyword);
+		System.out.println(restaurant+" resturnat found");
 		return new ResponseEntity<>(restaurant, HttpStatus.OK);
 	}
 
@@ -44,7 +45,7 @@ public class RestaurantController {
 		// for that user
 		User user = userService.findUserByJwtToken(jwt);
 		List<Restaurant> restaurant = restaurantService.getAllRestuarent();
-		return new ResponseEntity<>(restaurant, HttpStatus.OK);
+		return new ResponseEntity <>(restaurant, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -53,6 +54,8 @@ public class RestaurantController {
 			throws Exception {
 		// creating the rest by getting the jwt token of the user and creating the rest
 		// for that user
+		
+		System.out.println("getting details "+jwt+" id " +id);
 		User user = userService.findUserByJwtToken(jwt);
 
 		Restaurant restaurant = restaurantService.findRestaurantById(id);

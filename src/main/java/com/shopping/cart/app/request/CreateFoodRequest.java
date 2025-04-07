@@ -18,8 +18,10 @@ public class CreateFoodRequest {
 	private boolean vegetarin;
 	private boolean seasional;
 	private List<IngredientsItem> ingredients;
-	public String getName() {
-		return name;
+	
+	
+	public CreateFoodRequest() {
+		super();
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -71,6 +73,9 @@ public class CreateFoodRequest {
 	}
 	public void setIngredients(List<IngredientsItem> ingredients) {
 		this.ingredients = ingredients;
+	}
+	public String getName() {
+		return name;
 	}
 	
 

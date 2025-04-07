@@ -39,7 +39,6 @@ public class CartServiceImplem implements CartService {
 				return updateCartItemQuntity(cartItem.getId(), newQuantity);
 			}
 		}
-
 		CartItem newCartItem = new CartItem();
 		newCartItem.setFood(food);
 		newCartItem.setCart(cart);
@@ -50,42 +49,30 @@ public class CartServiceImplem implements CartService {
 		cart.getCartItems().add(savedCartItem);
 		return savedCartItem;
 	}
-
 	@Override
 	public CartItem updateCartItemQuntity(Long cartItemId, int qunatity) throws Exception {
-
 		Optional<CartItem> cartItemOptional = cartItemRepository.findById(cartItemId);
-
 		if (cartItemOptional.isEmpty()) {
 			throw new Exception("Cart Item not found");
 		}
-
 		CartItem item = cartItemOptional.get();
 		item.setQuantity(qunatity);
 		item.setTotalPrice(item.getFood().getPrice() * qunatity);
-
 		// price * quantity = totalPrice
-
 		return cartItemRepository.save(item);
 	}
-
 	@Override
 	public Cart removeItemFromCart(Long cartItemId, String jwt) throws Exception {
 		User user = userService.findUserByJwtToken(jwt);
 		Cart cart = cartRepository.findByCustomerId(user.getId());
-
 		Optional<CartItem> cartItemOptional = cartItemRepository.findById(cartItemId);
-
 		if (cartItemOptional.isEmpty()) {
 			throw new Exception("Cart Item not found");
 		}
-
 		CartItem item = cartItemOptional.get();
 		cart.getCartItems().remove(item);
-
 		return cartRepository.save(cart);
 	}
-
 	@Override
 	public Long calculateCartTotals(Cart cart) throws Exception {
 		Long total = 0L;
@@ -94,7 +81,6 @@ public class CartServiceImplem implements CartService {
 		}
 		return total;
 	}
-
 	@Override
 	public Cart findCartById(Long id) throws Exception {
 		Optional<Cart> optionalCart = cartRepository.findById(id);
@@ -103,7 +89,6 @@ public class CartServiceImplem implements CartService {
 		}
 		return optionalCart.get();
 	}
-
 	@Override
 	public Cart findCartByUserId(Long userId) throws Exception {
 		//User user = userService.findUserByJwtToken(jwt);
@@ -111,7 +96,6 @@ public class CartServiceImplem implements CartService {
 		cart.setTotal(calculateCartTotals(cart));
 		return cart;
 	}
-
 	@Override
 	public Cart clearCart(Long userId) throws Exception {
 		//User user = userService.findUserByJwtToken(jwt);
